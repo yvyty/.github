@@ -3,8 +3,10 @@ name: Sync org profile showcase
 # Keeps the "Projects" section of profile/README.md in sync with the org's
 # public repositories. Runs nightly so a newly published repo shows up on
 # https://github.com/yvyty without anyone pushing, and on demand from the
-# Actions tab. The commit it makes uses GITHUB_TOKEN, so it never re-triggers
-# this workflow.
+# Actions tab. main is protected by a ruleset that requires pull requests, so
+# the change lands via a PR from the automation/profile-sync branch that the
+# job then merges. Both use GITHUB_TOKEN, so the merge never re-triggers this
+# workflow.
 on:
   schedule:
     - cron: "23 6 * * *"
@@ -18,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: profile-sync
@@ -41,14 +44,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Commit changes
-        run: |
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "Profile is already up to date."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add profile/README.md
-          git commit -m "chore: sync org project showcase"
-          git push
+      - name: Open sync pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: automation/profile-sync
+          delete-branch: true
+          add-paths: profile/README.md
+          commit-message: "chore: sync org project showcase"
+          title: "chore: sync org project showcase"
+          body: |
+            Automated refresh of the PROJECTS block in `profile/README.md`
+            by `scripts/sync-projects.mjs`.
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+
+      - name: Merge sync pull request
+        if: steps.cpr.outputs.pull-request-number != ''
+        run: gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --squash --delete-branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

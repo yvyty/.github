@@ -79,9 +79,14 @@ git diff profile/README.md         # inspect the result
 - `renderProjects` and `injectProjects` are exported for quick local checks
   (import the file directly instead of running it).
 
-The workflow commits with `GITHUB_TOKEN`, which does **not** re-trigger
-workflows, so its own push cannot loop. It needs `contents: write`; on a
-protected `main` branch the push fails and a PAT or bypass rule is required.
+`main` is protected by a ruleset that requires pull requests (0 approvals), so
+the workflow never pushes to `main` directly: it commits to the
+`automation/profile-sync` branch, opens a PR with
+`peter-evans/create-pull-request`, and squash-merges it with `gh pr merge`.
+Everything uses `GITHUB_TOKEN`, which does **not** re-trigger workflows, so the
+merge cannot loop. It needs `contents: write` and `pull-requests: write`, plus
+the repo setting *Settings → Actions → General → Allow GitHub Actions to create
+and approve pull requests*; without it the PR step fails.
 GitHub also disables scheduled workflows after 60 days without repo activity,
 which a manual `workflow_dispatch` run resets.
 
