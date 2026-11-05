@@ -23,8 +23,11 @@ const README = path.join(ROOT, "profile", "README.md");
 const START_MARKER = "<!-- PROJECTS:START -->";
 const END_MARKER = "<!-- PROJECTS:END -->";
 
-/** Org meta-repos that are not products and must never be shown. */
-const EXCLUDED = new Set([".github", `${ORG}.github.io`]);
+/**
+ * Org repos that are not products and must never be shown: meta-repos plus
+ * distribution plumbing (the Homebrew tap only ships casks for other tools).
+ */
+const EXCLUDED = new Set([".github", `${ORG}.github.io`, "homebrew-tap"]);
 
 /**
  * Repos the public API cannot see, usually because they are private. A manual

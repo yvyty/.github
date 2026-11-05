@@ -51,11 +51,11 @@ npm ci && npm run dev        # npm run build runs `tsc -b && vite build` + a Git
 ## Org profile showcase sync
 
 `scripts/sync-projects.mjs` fetches `api.github.com/orgs/yvyty/repos`, drops
-forks, archived/disabled repos, private repos, and the `EXCLUDED` meta-repos
-(`.github`, `yvyty.github.io`), then rewrites **only** the text between the
-PROJECTS markers in `profile/README.md`. Everything outside the markers is
-hand-written and safe to edit. Top-level `await` is used, so the file needs the
-`.mjs` extension.
+forks, archived/disabled repos, private repos, and the `EXCLUDED` non-product
+repos (`.github`, `yvyty.github.io`, `homebrew-tap`), then rewrites **only**
+the text between the PROJECTS markers in `profile/README.md`. Everything outside
+the markers is hand-written and safe to edit. Top-level `await` is used, so the
+file needs the `.mjs` extension.
 
 ```sh
 node scripts/sync-projects.mjs     # update the block in place
@@ -117,7 +117,10 @@ why repo visibility and naming here have site-visible effects:
   `.github/workflows/deploy.yml`, queries `api.github.com/orgs/yvyty/repos`, and
   writes `src/data/projects.generated.json`.
 - It **drops** forks, archived/disabled repos, private repos, and the meta-repos
-  listed in its `EXCLUDED` set: `.github` and `yvyty.github.io`. This repo is
+  listed in its `EXCLUDED` set: `.github`, `yvyty.github.io` and
+  `homebrew-tap` (a public Homebrew tap that only ships casks for `h2ams`; it must
+  stay public so `brew tap` works anonymously, but it is not a product). Keep the
+  two `EXCLUDED` sets in sync. This repo is
   therefore never shown as a project.
 - `src/data/projects.ts` overlays hand-maintained copy and metadata:
   `OVERRIDES` (per-repo taglines, e.g. anthill's and guara's descriptions) and
