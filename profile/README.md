@@ -27,12 +27,14 @@ Whether you're a backend engineer, DevOps professional, data analyst, or prompt 
 ## 🚀 Projects
 
 <!-- PROJECTS:START -->
-_Synced automatically from our public repositories. Showing **2** projects._
+_Synced automatically from our public repositories. Showing **4** projects._
 
 | Project | About | Stack | Stars |
 | :--- | :--- | :--- | :--- |
 | [**🐜 Anthill**](<https://github.com/yvyty/anthill>) | A high-performance, cross-platform C CLI tool for checking local port availability. | `C` · MIT | [![stars](<https://img.shields.io/github/stars/yvyty/anthill?style=flat-square&color=6f42c1&label=%E2%AD%90>)](<https://github.com/yvyty/anthill/stargazers>) |
-| **🐺 Guará** · 🔒 | A fast Rust filesystem search, tracking, and light-security CLI. Inspired by the maned wolf: security is a signal, and default actions never mutate your files. | `Rust` · MIT | n/a |
+| [** Guara**](<https://github.com/yvyty/guara>) | A fast Rust filesystem search, tracking, and light-security CLI | `Rust` · Apache-2.0 | [![stars](<https://img.shields.io/github/stars/yvyty/guara?style=flat-square&color=6f42c1&label=%E2%AD%90>)](<https://github.com/yvyty/guara/stargazers>) |
+| [**🧩 H2ams**](<https://github.com/yvyty/h2ams>) | No description yet. | `Go` · MIT | [![stars](<https://img.shields.io/github/stars/yvyty/h2ams?style=flat-square&color=6f42c1&label=%E2%AD%90>)](<https://github.com/yvyty/h2ams/stargazers>) |
+| [**🧩 Homebrew Tap**](<https://github.com/yvyty/homebrew-tap>) | Homebrew tap for yvyty tools (h2ams) | `Ruby` · MIT | [![stars](<https://img.shields.io/github/stars/yvyty/homebrew-tap?style=flat-square&color=6f42c1&label=%E2%AD%90>)](<https://github.com/yvyty/homebrew-tap/stargazers>) |
 <!-- PROJECTS:END -->
 
 ## 🧠 Why the Name?
