@@ -31,20 +31,11 @@ const EXCLUDED = new Set([".github", `${ORG}.github.io`]);
  * entry is skipped automatically once the repo becomes public, so the API copy
  * (with a working link) takes over. Set `url` to null to render the card as
  * unlinked with a "Private" note.
+ *
+ * Shape: { name, title, emoji, description, language, license, url, isPrivate }.
+ * Empty while every product repo is public.
  */
-const MANUAL_PROJECTS = [
-  {
-    name: "guara",
-    title: "Guará",
-    emoji: "🐺",
-    description:
-      "A fast Rust filesystem search, tracking, and light-security CLI. Inspired by the maned wolf: security is a signal, and default actions never mutate your files.",
-    language: "Rust",
-    license: "MIT",
-    url: null,
-    isPrivate: true,
-  },
-];
+const MANUAL_PROJECTS = [];
 
 /** Display order for repos we want first; everything else is appended. */
 const PINNED_ORDER = ["anthill", "guara"];
