@@ -120,14 +120,15 @@ why repo visibility and naming here have site-visible effects:
   listed in its `EXCLUDED` set: `.github` and `yvyty.github.io`. This repo is
   therefore never shown as a project.
 - `src/data/projects.ts` overlays hand-maintained copy and metadata:
-  `OVERRIDES` (per-repo taglines, e.g. anthill's emoji-free description) and
-  `MANUAL_PROJECTS` (currently **guara**, because it is private and invisible to
-  the public API). A private entry renders as an unlinked card with a "Private"
-  badge; do not add a `url` to it.
+  `OVERRIDES` (per-repo taglines, e.g. anthill's and guara's descriptions) and
+  `MANUAL_PROJECTS` (private repos invisible to the public API; currently
+  empty). A private entry renders as an unlinked card with a "Private" badge;
+  do not add a `url` to it.
 - Consequence: publishing or renaming a public repo under `yvyty` makes it
-  appear on the site automatically at the next build or nightly cron. Once
-  `guara` goes public, delete its `MANUAL_PROJECTS` entry so the sync picks it
-  up.
+  appear on the site automatically at the next build or nightly cron. When a
+  private repo goes public, delete its `MANUAL_PROJECTS` entry in **both** this
+  repo's script and the site, and move any copy worth keeping into `OVERRIDES`
+  (site) or `TITLES`/`EMOJI` (profile).
 
 ## Gotchas
 
