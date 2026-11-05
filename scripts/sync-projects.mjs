@@ -50,7 +50,10 @@ const MANUAL_PROJECTS = [
 const PINNED_ORDER = ["anthill", "guara"];
 
 /** Emoji fallback per repo when neither the title nor the description has one. */
-const EMOJI = { anthill: "🐜", guara: "" };
+const EMOJI = { anthill: "🐜", guara: "🐺" };
+
+/** Display titles that a title-cased repo name cannot produce (e.g. accents). */
+const TITLES = { guara: "Guará" };
 const DEFAULT_EMOJI = "🧩";
 
 const EMOJI_PATTERN =
@@ -82,7 +85,7 @@ function toProject(repo) {
   const { emoji, text } = splitLeadingEmoji(repo.description ?? "");
   return {
     name: repo.name,
-    title: titleCase(repo.name),
+    title: TITLES[repo.name] ?? titleCase(repo.name),
     emoji: emoji ?? EMOJI[repo.name] ?? DEFAULT_EMOJI,
     description: text || "No description yet.",
     language: repo.language ?? null,
@@ -121,7 +124,7 @@ export function renderProjects(projects) {
   ];
 
   for (const project of projects) {
-    const name = `${project.emoji} ${project.title}`;
+    const name = [project.emoji, project.title].filter(Boolean).join(" ");
     const label = project.url
       ? `[**${name}**](<${project.url}>)`
       : `**${name}**${project.isPrivate ? " · 🔒" : ""}`;
